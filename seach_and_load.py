@@ -22,7 +22,7 @@ def text_wite(text):
     return('\033[37m {}' .format(text))
 
 def load_list_music(list_ref_music, dir_download):
-    print(text_yellow(f'[!] Начинаю загрузку'))
+    print(text_yellow(f'[!] Начинаю загрузку\n'))
 
     list_error = []
 
@@ -30,7 +30,7 @@ def load_list_music(list_ref_music, dir_download):
         for dic_ref_music in list_ref_music:
             if dic_ref_music['href'] != '':
                 #print(text_blue(f'\n[+] Загрузка по ссылке {dic_ref_music["href"]}'))
-                bar.text = f'Загрузка: {dic_ref_music["title"]} - {dic_ref_music["name_track"]}'
+                bar.text = f'--> загрузка: {dic_ref_music["title"]} - {dic_ref_music["name_track"]}'
             else:
                 print(text_red(f'\n[-] Не обнаружена ссылка для трека {dic_ref_music["name_track"]}'))
                 list_error.append(dic_ref_music["href"])
