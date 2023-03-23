@@ -93,7 +93,8 @@ def main():
     if user_mode == '1':
         get_list_music(user_input_addr, user_dir)
     elif user_mode == '0':
-        load_music(user_input_addr, user_dir)
+        print('Данный режим в разработке, пока не доступен')
+        #load_music(user_input_addr, user_dir)
     else:
         print('Не правильно указан режим, укажи 0 или 1')
 
