@@ -2,6 +2,7 @@ import argparse
 import tabulate
 import time
 import requests
+from alive_progress import alive_bar
 
 from art import tprint
 from ru_hitmotop_com import search_track as search_hitmotop
@@ -25,31 +26,37 @@ def load_list_music(list_ref_music, dir_download):
 
     list_error = []
 
-    for dic_ref_music in tqdm(list_ref_music):
-        if dic_ref_music['href'] != '':
-            tqdm.write(text_blue(f'\n[+] Загрузка по ссылке {dic_ref_music["href"]}'))
-        else:
-            tqdm.write(text_red(f'\n[-] Не обнаружена ссылка для трека {dic_ref_music["name_track"]}'))
-            continue
+    with alive_bar(len(list_ref_music), dual_line=True) as bar:
+        for dic_ref_music in list_ref_music:
+            if dic_ref_music['href'] != '':
+                #print(text_blue(f'\n[+] Загрузка по ссылке {dic_ref_music["href"]}'))
+                bar.text = f'Загрузка: {dic_ref_music["title"]} - {dic_ref_music["name_track"]}'
+            else:
+                print(text_red(f'\n[-] Не обнаружена ссылка для трека {dic_ref_music["name_track"]}'))
+                list_error.append(dic_ref_music["href"])
+                bar()
+                continue
 
-        try:
-            r = requests.get(dic_ref_music['href'], timeout=30)
+            try:
+                r = requests.get(dic_ref_music['href'], timeout=30)
 
-            split_href = dic_ref_music['href'].split('/')
+                split_href = dic_ref_music['href'].split('/')
 
-            name_file = dir_download + '/' + split_href[len(split_href) - 1]
-            with open(name_file, 'wb') as f:
-                f.write(r.content)
-                tqdm.write(text_blue(f'[+] Загрузка файла {name_file} завершена'))
-        except requests.Timeout as e:
-            tqdm.write(text_red(f'[-] Таймаут превышен. Не удалось загрузить ссылке {dic_ref_music["href"]}'))
-            list_error.append(dic_ref_music)
+                name_file = dir_download + '/' + split_href[len(split_href) - 1]
+                with open(name_file, 'wb') as f:
+                    f.write(r.content)
+                    #print(text_blue(f'[+] Загрузка файла {name_file} завершена'))
+                    bar()
+            except requests.Timeout as e:
+                print(text_red(f'[-] Таймаут превышен. Не удалось загрузить ссылке {dic_ref_music["href"]}'))
+                list_error.append(dic_ref_music["href"])
+                bar()
 
     if len(list_error) > 0:
         print(text_red(f'[-] Не все файлы удалось загрузить, смотри файл load_error.txt'))
 
         with open(dir_download + '/load_error.txt', 'w') as f:
-            f.write(list_error)
+            f.write(str(list_error))
 
     print(text_yellow(f'\n[!] Загрузка завершена'))
 

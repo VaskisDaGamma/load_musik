@@ -81,7 +81,7 @@ def get_list_music(url_base_user, dir_download):
             list_track.append(artist + '- ' + name_track)
             bar()
 
-        seach_and_load.load_musk(list_track, dir_download, False)
+    seach_and_load.load_musk(list_track, dir_download, False)
 
 def main():
     user_mode = input('0 - качаем с yandex (пока не работает), 1 - на yandex получаем только список (качаем на сторонних сайтах): ')
