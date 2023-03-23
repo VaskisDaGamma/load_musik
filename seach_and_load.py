@@ -70,41 +70,44 @@ def load_musk(name_file_search, dir_download, read_file=True):
     else:
         lines_file = name_file_search
 
-    for line in tqdm(lines_file):
-        # https://ru.hitmotop.com
-        tqdm.write(text_yellow(f'[!] Поиск {line.strip()} на {"https://ru.hitmotop.com"}'))
-        list_search_site = search_hitmotop(line)
+    with alive_bar(len(lines_file)) as bar:
+        for line in lines_file:
+            # https://ru.hitmotop.com
+            print(text_yellow(f'[!] Поиск {line.strip()} на {"https://ru.hitmotop.com"}'))
+            list_search_site = search_hitmotop(line)
 
-        if len(list_search_site) == 0:
-            # https://ruy.zvukofon.com
-            tqdm.write(text_yellow(f'[!] Поиск {line.strip()} на {"https://ruy.zvukofon.com"}'))
+            if len(list_search_site) == 0:
+                # https://ruy.zvukofon.com
+                print(text_yellow(f'[!] Поиск {line.strip()} на {"https://ruy.zvukofon.com"}'))
 
-            list_search_site = search_zvukofon(line)
+                list_search_site = search_zvukofon(line)
 
-        # создаю список для вывода пользователю
-        list_user_select = []
-        if len(list_search_site) > 1:
-            for i, item_music in enumerate(list_search_site):
-                list_user = [str(i), item_music['title'], item_music['name_track']]
+            # создаю список для вывода пользователю
+            list_user_select = []
+            if len(list_search_site) > 1:
+                for i, item_music in enumerate(list_search_site):
+                    list_user = [str(i), item_music['title'], item_music['name_track']]
 
-                list_user_select.append(list_user)
-                # ограничим список найденных до 5
-                if i == 4:
-                    break
+                    list_user_select.append(list_user)
+                    # ограничим список найденных до 5
+                    if i == 4:
+                        break
 
-            tqdm.write(tabulate.tabulate(list_user_select, tablefmt='grid'))
+                print(tabulate.tabulate(list_user_select, tablefmt='grid'))
 
-            select_user = input(text_blue(f'[>>] Найдено более одного трека по запросу "{line.strip()}", введи номер '))
-            list_download.append(list_search_site[int(select_user)])
+                with bar.pause():
+                    select_user = input(text_blue(f'[>>] Найдено более одного трека по запросу "{line.strip()}", введи номер '))
+                list_download.append(list_search_site[int(select_user)])
 
-            tqdm.write(text_yellow(f'\n[+] Файл {list_search_site[int(select_user)]} добавлен на скачивание\n'))
-        elif len(list_search_site) == 1:
-            tqdm.write(text_yellow(f'\n[+] Файл {list_search_site[0]} добавлен на скачивание\n'))
-            list_download.append(list_search_site[0])
-        else:
-            tqdm.write(text_red(f'\n[-] По запросу "{line.strip()}" ничего не найдено\n'))
-
-        time.sleep(0.01)
+                print(text_yellow(f'\n[+] Файл {list_search_site[int(select_user)]} добавлен на скачивание\n'))
+                bar()
+            elif len(list_search_site) == 1:
+                print(text_yellow(f'\n[+] Файл {list_search_site[0]} добавлен на скачивание\n'))
+                list_download.append(list_search_site[0])
+                bar()
+            else:
+                print(text_red(f'\n[-] По запросу "{line.strip()}" ничего не найдено\n'))
+                bar()
 
     load_list_music(list_download, dir_download)
 

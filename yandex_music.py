@@ -3,6 +3,7 @@ import os.path
 import time
 import requests
 from alive_progress import alive_bar
+from art import tprint
 
 import seach_and_load
 
@@ -84,6 +85,7 @@ def get_list_music(url_base_user, dir_download):
     seach_and_load.load_musk(list_track, dir_download, False)
 
 def main():
+    tprint('yandex grub')
     user_mode = input('0 - качаем с yandex (пока не работает), 1 - на yandex получаем только список (качаем на сторонних сайтах): ')
     user_input_addr = input('Введи адрес плейлиста: ')
     user_dir = input('Введи папку, куда будем сохранять: ')
