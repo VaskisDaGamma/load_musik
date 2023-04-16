@@ -71,16 +71,27 @@ def get_list_music(url_base_user, dir_download):
 
     data_json = json.loads(re.text)
     list_track = []
-    tracks = data_json['playlist']['tracks']
-    with alive_bar(len(tracks), title='Формирую список треков') as bar:
-        for track in tracks:
-            artist = ''
-            for name_artist in track['artists']:
-                artist += name_artist['name'] + ' '
 
+    input_user = input('Это сборник (0) или альбом(1)?')
+    if input_user == 0:
+        tracks = data_json['playlist']['tracks']
+        with alive_bar(len(tracks), title='Формирую список треков') as bar:
+            for track in tracks:
+                artist = ''
+                for name_artist in track['artists']:
+                    artist += name_artist['name'] + ' '
+
+                name_track = track['title']
+                list_track.append(artist + '- ' + name_track)
+                bar()
+    else:
+        artists = data_json['artists']
+        artist = artists[0]['name']
+
+        tracks = data_json['volumes']
+        for track in tracks[0]:
             name_track = track['title']
             list_track.append(artist + '- ' + name_track)
-            bar()
 
     seach_and_load.load_musk(list_track, dir_download, False)
 
