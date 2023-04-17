@@ -73,7 +73,7 @@ def get_list_music(url_base_user, dir_download):
     list_track = []
 
     input_user = input('Это сборник (0) или альбом(1)?')
-    if input_user == 0:
+    if input_user == '0':
         tracks = data_json['playlist']['tracks']
         with alive_bar(len(tracks), title='Формирую список треков') as bar:
             for track in tracks:
