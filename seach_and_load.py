@@ -22,7 +22,7 @@ def text_wite(text):
     return('\033[37m {}' .format(text))
 
 def load_list_music(list_ref_music, dir_download):
-    print(text_yellow(f'[!] Начинаю загрузку\n'))
+    print(text_yellow(f'\n[!] Начинаю загрузку\n'))
 
     list_error = []
 
