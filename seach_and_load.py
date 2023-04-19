@@ -7,6 +7,7 @@ from alive_progress import alive_bar
 from art import tprint
 from ru_hitmotop_com import search_track as search_hitmotop
 from ruy_zvukofon_com import search_track as search_zvukofon
+from musify_club import  search_track as search_musify_club
 from tqdm import tqdm
 
 def text_red(text):
@@ -81,6 +82,11 @@ def load_musk(name_file_search, dir_download, read_file=True):
                 print(text_yellow(f'[!] Поиск {line.strip()} на {"https://ruy.zvukofon.com"}'))
 
                 list_search_site = search_zvukofon(line)
+
+            if len(list_search_site) == 0:
+                # https://musify.club
+                print(text_yellow(f'[!] Поиск {line.strip()} на {"https://musify.club"}'))
+                list_search_site = search_musify_club(line)
 
             # создаю список для вывода пользователю
             list_user_select = []
