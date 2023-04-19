@@ -1,3 +1,5 @@
+import musify_club
+import ru_hitmotop_com
 import ruy_zvukofon_com
 import yandex_music
 
@@ -21,8 +23,14 @@ if __name__ == '__main__':
 
         ruy_zvukofon_com.download_music(input_url, input_dir)
     elif user_input == '3':
-        pass
+        input_url = input('Введи url со списком песен: ')
+        input_dir = input('Введи каталог для сохранения: ')
+
+        ru_hitmotop_com.download_music(input_url, input_dir)
     elif user_input == '4':
-        pass
+        input_url = input('Введи url со списком песен: ')
+        input_dir = input('Введи каталог для сохранения: ')
+
+        musify_club.download_music(input_url, input_dir)
     elif user_input == '5':
         pass
