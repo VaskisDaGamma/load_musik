@@ -1,13 +1,11 @@
 import argparse
 import tabulate
-import time
 import requests
 from alive_progress import alive_bar
 
 from art import tprint
 from ru_hitmotop_com import search_track as search_hitmotop
 from ruy_zvukofon_com import search_track as search_zvukofon
-from tqdm import tqdm
 
 def text_red(text):
     return('\033[31m {}' .format(text) + text_wite(''))
