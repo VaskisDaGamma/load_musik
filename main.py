@@ -1,6 +1,7 @@
 import musify_club
 import ru_hitmotop_com
 import ruy_zvukofon_com
+import seach_and_load
 import yandex_music
 
 if __name__ == '__main__':
@@ -33,4 +34,7 @@ if __name__ == '__main__':
 
         musify_club.download_music(input_url, input_dir)
     elif user_input == '5':
-        pass
+        input_search_file = input('Введи файл со списком песен для поиска ')
+        input_dir = input('Введи каталог для сохранения: ')
+
+        seach_and_load.load_musk(input_search_file, input_dir)
