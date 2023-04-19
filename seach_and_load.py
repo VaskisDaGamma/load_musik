@@ -96,7 +96,7 @@ def load_musk(name_file_search, dir_download, read_file=True):
                 print(tabulate.tabulate(list_user_select, tablefmt='grid'))
 
                 with bar.pause():
-                    print(text_blue('99 - пропустить'))
+                    print(text_blue('Набери 99, чтобы пропустить'))
                     select_user = input(text_blue(f'[>>] Найдено более одного трека по запросу "{line.strip()}", введи номер '))
 
                 if select_user != '99':
