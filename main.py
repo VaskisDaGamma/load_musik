@@ -1,3 +1,4 @@
+import ruy_zvukofon_com
 import yandex_music
 
 if __name__ == '__main__':
@@ -15,7 +16,10 @@ if __name__ == '__main__':
     if user_input == '1':
         yandex_music.main()
     elif user_input == '2':
-        pass
+        input_url = input('Введи url со списком песен: ')
+        input_dir = input('Введи каталог для сохранения: ')
+
+        ruy_zvukofon_com.download_music(input_url, input_dir)
     elif user_input == '3':
         pass
     elif user_input == '4':
