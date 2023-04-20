@@ -1,12 +1,12 @@
 import argparse
 import tabulate
 import requests
-from alive_progress import alive_bar
 
 from art import tprint
+from alive_progress import alive_bar
+from musify_club import  search_track as search_musify_club
 from ru_hitmotop_com import search_track as search_hitmotop
 from ruy_zvukofon_com import search_track as search_zvukofon
-from musify_club import  search_track as search_musify_club
 
 def text_red(text):
     return('\033[31m {}' .format(text) + text_wite(''))
@@ -28,7 +28,6 @@ def load_list_music(list_ref_music, dir_download):
     with alive_bar(len(list_ref_music), dual_line=True) as bar:
         for dic_ref_music in list_ref_music:
             if dic_ref_music['href'] != '':
-                #print(text_blue(f'\n[+] Загрузка по ссылке {dic_ref_music["href"]}'))
                 bar.text = f'--> загрузка: {dic_ref_music["title"]} - {dic_ref_music["name_track"]}'
             else:
                 print(text_red(f'\n[-] Не обнаружена ссылка для трека {dic_ref_music["name_track"]}'))
@@ -44,7 +43,6 @@ def load_list_music(list_ref_music, dir_download):
                 name_file = dir_download + '/' + split_href[len(split_href) - 1]
                 with open(name_file, 'wb') as f:
                     f.write(r.content)
-                    #print(text_blue(f'[+] Загрузка файла {name_file} завершена'))
                     bar()
             except requests.Timeout as e:
                 print(text_red(f'[-] Таймаут превышен. Не удалось загрузить ссылке {dic_ref_music["href"]}'))

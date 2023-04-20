@@ -1,11 +1,11 @@
 import json
+import seach_and_load
 import os.path
 import time
 import requests
+
 from alive_progress import alive_bar
 from art import tprint
-
-import seach_and_load
 
 def get_ref_track_download(id_albom, id_track):
     date_milliseconds = int(time.time()*1000)
@@ -36,6 +36,7 @@ def load_music(url_base, dir_download):
         print(f'Нет такого каталога {dir_download}')
         return
     '''
+
     user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
     headers = {'User-Agent': user_agent}
 
