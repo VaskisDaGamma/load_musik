@@ -1,7 +1,6 @@
 import argparse
-import time
-
 import requests
+import time
 
 from art import tprint
 from bs4 import BeautifulSoup
@@ -89,7 +88,6 @@ def download_music(url, dir_download):
 if __name__ == '__main__':
     tprint('hitmotop')
 
-
     parser = argparse.ArgumentParser()
     parser.add_argument('url')
     parser.add_argument('dir')
@@ -98,10 +96,5 @@ if __name__ == '__main__':
 
     url = args.url
     dir_download = args.dir + '/'
-
-    '''
-    url = 'https://ru.hitmotop.com/artist/1701'
-    dir_download = '/media/sf_Music/Test' + '/'
-    '''
 
     download_music(url, dir_download)

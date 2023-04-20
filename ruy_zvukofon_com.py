@@ -1,7 +1,6 @@
 import argparse
-import time
-
 import requests
+import time
 
 from art import tprint
 from bs4 import BeautifulSoup
