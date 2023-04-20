@@ -104,7 +104,14 @@ def load_musk(name_file_search, dir_download, read_file=True):
                     select_user = input(text_blue(f'[>>] Найдено более одного трека по запросу "{line.strip()}", введи номер '))
 
                 if select_user != '99':
-                    list_download.append(list_search_site[int(select_user)])
+                    while True:
+                        try:
+                            list_download.append(list_search_site[int(select_user)])
+
+                            break
+                        except Exception as e:
+                            print(tabulate.tabulate(list_user_select, tablefmt='grid'))
+
                     print(text_yellow(f'\n[+] Файл {list_search_site[int(select_user)]} добавлен на скачивание\n'))
 
                 bar()
