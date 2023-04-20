@@ -1,6 +1,5 @@
 import argparse
 import tabulate
-import time
 import requests
 from alive_progress import alive_bar
 
@@ -8,7 +7,6 @@ from art import tprint
 from ru_hitmotop_com import search_track as search_hitmotop
 from ruy_zvukofon_com import search_track as search_zvukofon
 from musify_club import  search_track as search_musify_club
-from tqdm import tqdm
 
 def text_red(text):
     return('\033[31m {}' .format(text) + text_wite(''))
@@ -102,10 +100,13 @@ def load_musk(name_file_search, dir_download, read_file=True):
                 print(tabulate.tabulate(list_user_select, tablefmt='grid'))
 
                 with bar.pause():
+                    print(text_blue('Набери 99, чтобы пропустить'))
                     select_user = input(text_blue(f'[>>] Найдено более одного трека по запросу "{line.strip()}", введи номер '))
-                list_download.append(list_search_site[int(select_user)])
 
-                print(text_yellow(f'\n[+] Файл {list_search_site[int(select_user)]} добавлен на скачивание\n'))
+                if select_user != '99':
+                    list_download.append(list_search_site[int(select_user)])
+                    print(text_yellow(f'\n[+] Файл {list_search_site[int(select_user)]} добавлен на скачивание\n'))
+
                 bar()
             elif len(list_search_site) == 1:
                 print(text_yellow(f'\n[+] Файл {list_search_site[0]} добавлен на скачивание\n'))
