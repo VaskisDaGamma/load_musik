@@ -98,19 +98,21 @@ def load_musk(name_file_search, dir_download, read_file=True):
                 print(tabulate.tabulate(list_user_select, tablefmt='grid'))
 
                 with bar.pause():
-                    print(text_blue('Набери 99, чтобы пропустить'))
-                    select_user = input(text_blue(f'[>>] Найдено более одного трека по запросу "{line.strip()}", введи номер '))
-
-                if select_user != '99':
                     while True:
-                        try:
-                            list_download.append(list_search_site[int(select_user)])
+                        print(text_blue('Набери 99, чтобы пропустить'))
+                        select_user = input(
+                            text_blue(f'[>>] Найдено более одного трека по запросу "{line.strip()}", введи номер '))
 
+                        if select_user != '99':
+                            try:
+                                list_download.append(list_search_site[int(select_user)])
+                                print(text_yellow(f'\n[+] Файл {list_search_site[int(select_user)]} добавлен на скачивание\n'))
+                                break
+                            except Exception as e:
+                                print(text_red('[!] Не правильно выбран номер трека'))
+                        else:
+                            print(text_red(f'[!] Трек "{line.strip()}", пропущен'))
                             break
-                        except Exception as e:
-                            print(tabulate.tabulate(list_user_select, tablefmt='grid'))
-
-                    print(text_yellow(f'\n[+] Файл {list_search_site[int(select_user)]} добавлен на скачивание\n'))
 
                 bar()
             elif len(list_search_site) == 1:
