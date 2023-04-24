@@ -48,6 +48,10 @@ def load_list_music(list_ref_music, dir_download):
                 print(text_red(f'[-] Таймаут превышен. Не удалось загрузить ссылке {dic_ref_music["href"]}'))
                 list_error.append(dic_ref_music["href"])
                 bar()
+            except Exception as e:
+                print(text_red(f'[-] Что-то пошло не так. Не удалось загрузить ссылке {dic_ref_music["href"]}'))
+                list_error.append(dic_ref_music["href"])
+                bar()
 
     if len(list_error) > 0:
         print(text_red(f'[-] Не все файлы удалось загрузить, смотри файл load_error.txt'))
